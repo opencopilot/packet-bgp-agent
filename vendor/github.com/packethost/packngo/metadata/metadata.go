@@ -112,6 +112,7 @@ type CurrentDevice struct {
 	Network    NetworkInfo            `json:"network"`
 	Volumes    []VolumeInfo           `json:"volume"`
 	CustomData map[string]interface{} `json:"customdata"`
+
 	// This is available, but is actually inaccurate, currently:
 	//   APIBaseURL string          `json:"api_url"`
 }

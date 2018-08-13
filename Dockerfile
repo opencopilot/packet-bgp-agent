@@ -1,6 +1,6 @@
 FROM golang:alpine
 
-WORKDIR /go/src/github.com/patrickdevivo/packet-bgp-agent
+WORKDIR /go/src/github.com/opencopilot/packet-bgp-agent
 COPY . .
 
 RUN apk update; apk add curl; apk add git;

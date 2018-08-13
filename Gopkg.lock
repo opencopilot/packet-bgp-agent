@@ -41,7 +41,7 @@
     "ptypes/duration",
     "ptypes/timestamp"
   ]
-  revision = "9f81198da99b79e14d70ca2c3cc1bbe44c6e69b6"
+  revision = "9eb2c01ac278a5d89ce4b2be68fe4500955d8179"
 
 [[projects]]
   branch = "master"
@@ -67,8 +67,8 @@
     "models",
     "pkg/escape"
   ]
-  revision = "89e084a80fb1e0bf5e7d38038e3367f821fdf3d7"
-  version = "v1.5.3"
+  revision = "4e4e00bc5ab85a3ff5e988c91020cf0399a87026"
+  version = "v1.5.4"
 
 [[projects]]
   name = "github.com/magiconair/properties"
@@ -102,7 +102,7 @@
   branch = "master"
   name = "github.com/packethost/packngo"
   packages = ["metadata"]
-  revision = "db5b2fb99ee303eba5699cb0f9d74aeba8b39b73"
+  revision = "95039464827381cb3f66f5dfb1b5ad3e18cf052b"
 
 [[projects]]
   name = "github.com/pelletier/go-toml"
@@ -162,7 +162,7 @@
     ".",
     "nl"
   ]
-  revision = "ee06b1df73a4d5a0620c75fa6ee071b870965017"
+  revision = "028453c77ce572d3554b3873c654663283ac42a3"
 
 [[projects]]
   branch = "master"
@@ -188,7 +188,7 @@
     "internal/timeseries",
     "trace"
   ]
-  revision = "db08ff08e8622530d9ed3a0e8ac279f6d4c02196"
+  revision = "4cb1c02c05b0e749b0365f61ae859a8e0cfceed9"
 
 [[projects]]
   branch = "master"
@@ -197,7 +197,7 @@
     "unix",
     "windows"
   ]
-  revision = "ad87a3a340fa7f3bed189293fbfa7a9b7e021ae1"
+  revision = "7138fd3d9dc8335c567ca206f4333fb75eb05d56"
 
 [[projects]]
   name = "golang.org/x/text"
@@ -224,7 +224,7 @@
   branch = "master"
   name = "google.golang.org/genproto"
   packages = ["googleapis/rpc/status"]
-  revision = "32ee49c4dd805befd833990acba36cb75042378c"
+  revision = "ff3583edef7de132f219f0efc00e097cabcc0ec0"
 
 [[projects]]
   name = "google.golang.org/grpc"

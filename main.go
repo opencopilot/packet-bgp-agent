@@ -4,6 +4,7 @@ import (
 	"errors"
 	"log"
 	"net"
+	"os"
 	"time"
 
 	api "github.com/osrg/gobgp/api"
@@ -13,6 +14,10 @@ import (
 	"github.com/osrg/gobgp/table"
 	"github.com/packethost/packngo/metadata"
 	"github.com/vishvananda/netlink"
+)
+
+var (
+	md5Password = os.Getenv("MD5_PASSWORD")
 )
 
 func getAnnouncementIP() (net.IP, *net.IPNet, error) {
@@ -70,7 +75,7 @@ func ensureAddr() {
 		if err != nil {
 			log.Println(err)
 		}
-		time.Sleep(30 * time.Second)
+		time.Sleep(10 * time.Second)
 	}
 }
 
@@ -89,6 +94,10 @@ func ensureBGP() {
 	annIP, annIPNet, err := getAnnouncementIP()
 	if err != nil {
 		log.Println(err)
+	}
+	if annIP == nil || annIPNet == nil {
+		log.Println("could not find IP")
+		return
 	}
 
 	ones, _ := annIPNet.Mask.Size()
@@ -111,7 +120,7 @@ func ensureBGP() {
 		Config: config.NeighborConfig{
 			NeighborAddress: privIP.Gateway.String(),
 			PeerAs:          65530,
-			AuthPassword:    "WBffcwY3dfZXkua4u",
+			AuthPassword:    md5Password,
 		},
 	}
 
