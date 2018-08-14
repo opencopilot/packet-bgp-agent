@@ -1,6 +1,6 @@
 ### Packet BGP Agent
 
-Watches Packet metadata for changes to a `customdata` field called `BGP_ANNOUNCE`, adds the specified IP blocks to the loopback device, and uses `gobgp` to begin announcing those IPs.
+Watches Packet metadata for changes to a `customdata` field called `BGP_ANNOUNCE`, adds the specified IP blocks to the loopback device, and uses `gobgp` to begin announcing those IPs. The `BGP_ANNOUNCE` can be set to either a string or an array of strings `X.X.X.X/XX` or `[X.X.X.X/XX, X.X.X.X/XX]` depending on how many blocks you want to announce.
 
 #### Usage
 
