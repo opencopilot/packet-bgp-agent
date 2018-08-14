@@ -102,8 +102,12 @@ func (agent *PacketBGPAgent) EnsureIPs(done chan bool) {
 			switch a := annoucementIPs.(type) {
 			case string:
 				agent.AnnoucementIPs = []string{a}
-			case []string:
-				agent.AnnoucementIPs = a
+			case []interface{}:
+				ips := make([]string, 0)
+				for i := range a {
+					ips = append(ips, a[i].(string))
+				}
+				agent.AnnoucementIPs = ips
 			default:
 				continue
 			}
@@ -117,6 +121,8 @@ func (agent *PacketBGPAgent) EnsureIPs(done chan bool) {
 
 // EnsureBGP adds all IPs in agent.AnnoucementIPs to BGP server
 func (agent *PacketBGPAgent) EnsureBGP() error {
+	log.Println("ensuring announcement of the following IP blocks: ", agent.AnnoucementIPs)
+
 	for _, announceIP := range agent.AnnoucementIPs {
 		ip, ipnet, err := net.ParseCIDR(announceIP)
 		if err != nil {
@@ -139,8 +145,6 @@ func (agent *PacketBGPAgent) EnsureBGP() error {
 		if _, err := agent.BGPServer.AddPath("", []*table.Path{table.NewPath(nil, bgp.NewIPAddrPrefix(uint8(ones), ip.String()), false, attrs, time.Now(), false)}); err != nil {
 			return err
 		}
-
-		log.Println(ip.String())
 	}
 	return nil
 }
