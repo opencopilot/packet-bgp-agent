@@ -13,7 +13,14 @@ import (
 
 var (
 	md5Password = os.Getenv("MD5_PASSWORD")
+	asn         = os.Getenv("ASN")
 )
+
+func init() {
+	if asn == "" {
+		asn = "65000"
+	}
+}
 
 func main() {
 	s := gobgpServer.NewBgpServer()
@@ -22,7 +29,7 @@ func main() {
 	g := gobgpApi.NewGrpcServer(s, ":50051")
 	go g.Serve()
 
-	agent, err := NewPacketBGPAgent(s, g, md5Password)
+	agent, err := NewPacketBGPAgent(s, g, md5Password, asn)
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net"
+	"strconv"
 	"time"
 
 	"github.com/osrg/gobgp/config"
@@ -22,19 +23,26 @@ type PacketBGPAgent struct {
 	AnnoucementIPs []string
 	PrivateIP      *metadata.AddressInfo
 	MD5Password    string
+	ASN            string
 }
 
 // NewPacketBGPAgent creates a new PacketBGPAgent
-func NewPacketBGPAgent(bgpServer *gobgpServer.BgpServer, grpcServer *gobgpApi.Server, md5Password string) (*PacketBGPAgent, error) {
+func NewPacketBGPAgent(bgpServer *gobgpServer.BgpServer, grpcServer *gobgpApi.Server, md5Password, asn string) (*PacketBGPAgent, error) {
 	privateIP, err := getPrivateIP()
 	if err != nil {
 		return nil, err
 	}
 
+	asn64, err := strconv.ParseUint(asn, 10, 32)
+	if err != nil {
+		return nil, err
+	}
+	asn32 := uint32(asn64)
+
 	// global configuration
 	global := &config.Global{
 		Config: config.GlobalConfig{
-			As:       65000,
+			As:       asn32,
 			RouterId: privateIP.Gateway.String(),
 			Port:     -1, // gobgp won't listen on tcp:179,
 		},
@@ -63,6 +71,7 @@ func NewPacketBGPAgent(bgpServer *gobgpServer.BgpServer, grpcServer *gobgpApi.Se
 		AnnoucementIPs: []string{},
 		PrivateIP:      privateIP,
 		MD5Password:    md5Password,
+		ASN:            asn,
 	}, nil
 }
 
