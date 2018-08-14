@@ -44,6 +44,6 @@ func main() {
 	<-gracefulStop
 	log.Println("received stop signal, shutting down")
 	quit <- true
-	time.Sleep(2 * time.Second)
+	time.Sleep(1 * time.Second)
 	os.Exit(0)
 }

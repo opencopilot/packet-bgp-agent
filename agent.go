@@ -85,6 +85,7 @@ func (agent *PacketBGPAgent) EnsureIPs(done chan bool) {
 	for {
 		select {
 		case <-done:
+			iterator.Close()
 			break
 		default:
 			res, err := iterator.Next()
@@ -106,7 +107,10 @@ func (agent *PacketBGPAgent) EnsureIPs(done chan bool) {
 			default:
 				continue
 			}
-			agent.EnsureBGP()
+			err = agent.EnsureBGP()
+			if err != nil {
+				log.Println(err)
+			}
 		}
 	}
 }
