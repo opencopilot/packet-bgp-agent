@@ -40,3 +40,7 @@
 [[constraint]]
   name = "github.com/osrg/gobgp"
   version = "1.32.0"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/packethost/packetmetadata"

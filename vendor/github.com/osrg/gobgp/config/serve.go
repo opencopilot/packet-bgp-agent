@@ -68,12 +68,10 @@ func ReadConfigfileServe(path, format string, configCh chan *BgpConfigSet) {
 			}).Warningf("Can't read config file %s", path)
 		}
 	NEXT:
-		select {
-		case <-sigCh:
-			log.WithFields(log.Fields{
-				"Topic": "Config",
-			}).Info("Reload the config file")
-		}
+		<-sigCh
+		log.WithFields(log.Fields{
+			"Topic": "Config",
+		}).Info("Reload the config file")
 	}
 }
 
@@ -147,9 +145,8 @@ func CheckPolicyDifference(currentPolicy *RoutingPolicy, newPolicy *RoutingPolic
 		"Topic": "Config",
 	}).Debugf("New policy:%s", newPolicy)
 
-	var result bool = false
+	var result bool
 	if currentPolicy == nil && newPolicy == nil {
-
 		result = false
 	} else {
 		if currentPolicy != nil && newPolicy != nil {

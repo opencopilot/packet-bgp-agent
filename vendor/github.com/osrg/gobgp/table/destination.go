@@ -150,7 +150,7 @@ func (i *PeerInfo) String() string {
 }
 
 func NewPeerInfo(g *config.Global, p *config.Neighbor) *PeerInfo {
-	id := net.ParseIP(string(p.RouteReflector.Config.RouteReflectorClusterId)).To4()
+	clusterID := net.ParseIP(string(p.RouteReflector.State.RouteReflectorClusterId)).To4()
 	// exclude zone info
 	naddr, _ := net.ResolveIPAddr("ip", p.State.NeighborAddress)
 	return &PeerInfo{
@@ -159,7 +159,7 @@ func NewPeerInfo(g *config.Global, p *config.Neighbor) *PeerInfo {
 		LocalID:                 net.ParseIP(g.Config.RouterId).To4(),
 		RouteReflectorClient:    p.RouteReflector.Config.RouteReflectorClient,
 		Address:                 naddr.IP,
-		RouteReflectorClusterID: id,
+		RouteReflectorClusterID: clusterID,
 		MultihopTtl:             p.EbgpMultihop.Config.MultihopTtl,
 		Confederation:           p.IsConfederationMember(g),
 	}
@@ -253,18 +253,6 @@ func (dd *Destination) GetBestPath(id string, as uint32) *Path {
 
 func (dd *Destination) GetMultiBestPath(id string) []*Path {
 	return getMultiBestPath(id, dd.knownPathList)
-}
-
-func (dd *Destination) validatePath(path *Path) {
-	if path == nil || path.GetRouteFamily() != dd.routeFamily {
-
-		log.WithFields(log.Fields{
-			"Topic":      "Table",
-			"Key":        dd.GetNlri().String(),
-			"Path":       path,
-			"ExpectedRF": dd.routeFamily,
-		}).Error("path is nil or invalid route family")
-	}
 }
 
 // Calculates best-path among known paths for this destination.
@@ -530,10 +518,7 @@ func (dst *Destination) sort() {
 
 		better.reason = reason
 
-		if better == path1 {
-			return true
-		}
-		return false
+		return better == path1
 	})
 }
 
