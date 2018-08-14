@@ -5,7 +5,7 @@
   branch = "master"
   name = "github.com/armon/go-radix"
   packages = ["."]
-  revision = "1fca145dffbcaa8fe914309b1ec0cfc67500fe61"
+  revision = "7fddfc383310abc091d79a27f116d30cf0424032"
 
 [[projects]]
   branch = "master"
@@ -26,6 +26,12 @@
   version = "v1.1.0"
 
 [[projects]]
+  name = "github.com/evanphx/json-patch"
+  packages = ["."]
+  revision = "afac545df32f2287a079e2dfb7ba2745a643747e"
+  version = "v3.0.0"
+
+[[projects]]
   name = "github.com/fsnotify/fsnotify"
   packages = ["."]
   revision = "c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9"
@@ -41,7 +47,7 @@
     "ptypes/duration",
     "ptypes/timestamp"
   ]
-  revision = "9eb2c01ac278a5d89ce4b2be68fe4500955d8179"
+  revision = "89a0c16f4dc2a70c0ed864d8ef64878f24fdaa51"
 
 [[projects]]
   branch = "master"
@@ -67,8 +73,8 @@
     "models",
     "pkg/escape"
   ]
-  revision = "4e4e00bc5ab85a3ff5e988c91020cf0399a87026"
-  version = "v1.5.4"
+  revision = "5766854b95ae86cccf6cc8ffe4c5bb9eacc994b8"
+  version = "v1.6.1"
 
 [[projects]]
   name = "github.com/magiconair/properties"
@@ -80,7 +86,7 @@
   branch = "master"
   name = "github.com/mitchellh/mapstructure"
   packages = ["."]
-  revision = "bb74f1db0675b241733089d5a1faa5dd8b0ef57b"
+  revision = "f15292f7a699fcc1a38a80977f80a046874ba8ac"
 
 [[projects]]
   name = "github.com/osrg/gobgp"
@@ -95,14 +101,26 @@
     "table",
     "zebra"
   ]
-  revision = "a6e0d00a705146e6b7f72a4d58c61b063980cc65"
-  version = "v1.32"
+  revision = "8e6bd4c7145de5a68c40246418500bf05af9ce39"
+  version = "v1.33"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/packethost/packetmetadata"
+  packages = [
+    "hegel",
+    "packetmetadata"
+  ]
+  revision = "1a2e40a590289bd0de5ea0f8ec91fb94f017df7b"
 
 [[projects]]
   branch = "master"
   name = "github.com/packethost/packngo"
-  packages = ["metadata"]
-  revision = "95039464827381cb3f66f5dfb1b5ad3e18cf052b"
+  packages = [
+    ".",
+    "metadata"
+  ]
+  revision = "34705f16ffb1e48a6421713c5318f6d56afe2f41"
 
 [[projects]]
   name = "github.com/pelletier/go-toml"
@@ -119,8 +137,8 @@
 [[projects]]
   name = "github.com/sirupsen/logrus"
   packages = ["."]
-  revision = "c155da19408a8799da419ed3eeb0cb5db0ad5dbc"
-  version = "v1.0.5"
+  revision = "3e01752db0189b9157070a0e1668a620f9a85da2"
+  version = "v1.0.6"
 
 [[projects]]
   name = "github.com/spf13/afero"
@@ -141,19 +159,19 @@
   branch = "master"
   name = "github.com/spf13/jwalterweatherman"
   packages = ["."]
-  revision = "7c0cea34c8ece3fbeb2b27ab9b59511d360fb394"
+  revision = "14d3d4c518341bea657dd8a226f5121c0ff8c9f2"
 
 [[projects]]
   name = "github.com/spf13/pflag"
   packages = ["."]
-  revision = "583c0c0531f06d5278b7d917446061adc344b5cd"
-  version = "v1.0.1"
+  revision = "9a97c102cda95a86cec2345a6f09f55a939babf5"
+  version = "v1.0.2"
 
 [[projects]]
-  branch = "master"
   name = "github.com/spf13/viper"
   packages = ["."]
-  revision = "15738813a09db5c8e5b60a19d67d3f9bd38da3a4"
+  revision = "907c19d40d9a6c9bb55f040ff4ae45271a4754b9"
+  version = "v1.1.0"
 
 [[projects]]
   branch = "master"
@@ -162,19 +180,19 @@
     ".",
     "nl"
   ]
-  revision = "028453c77ce572d3554b3873c654663283ac42a3"
+  revision = "8aa85bfa77a45236ae842cab3a91853e2b74e07a"
 
 [[projects]]
   branch = "master"
   name = "github.com/vishvananda/netns"
   packages = ["."]
-  revision = "be1fbeda19366dea804f00efff2dd73a1642fdcc"
+  revision = "13995c7128ccc8e51e9a6bd2b551020a27180abd"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
-  revision = "a49355c7e3f8fe157a85be2f77e6e269a0f89602"
+  revision = "de0752318171da717af4ce24d0a2e8626afaeb11"
 
 [[projects]]
   branch = "master"
@@ -188,7 +206,7 @@
     "internal/timeseries",
     "trace"
   ]
-  revision = "4cb1c02c05b0e749b0365f61ae859a8e0cfceed9"
+  revision = "c39426892332e1bb5ec0a434a079bf82f5d30c54"
 
 [[projects]]
   branch = "master"
@@ -197,7 +215,7 @@
     "unix",
     "windows"
   ]
-  revision = "7138fd3d9dc8335c567ca206f4333fb75eb05d56"
+  revision = "4e1fef5609515ec7a2cee7b5de30ba6d9b438cbf"
 
 [[projects]]
   name = "golang.org/x/text"
@@ -224,7 +242,7 @@
   branch = "master"
   name = "google.golang.org/genproto"
   packages = ["googleapis/rpc/status"]
-  revision = "ff3583edef7de132f219f0efc00e097cabcc0ec0"
+  revision = "383e8b2c3b9e36c4076b235b32537292176bae20"
 
 [[projects]]
   name = "google.golang.org/grpc"
@@ -242,7 +260,9 @@
     "internal",
     "internal/backoff",
     "internal/channelz",
+    "internal/envconfig",
     "internal/grpcrand",
+    "internal/transport",
     "keepalive",
     "metadata",
     "naming",
@@ -252,11 +272,10 @@
     "resolver/passthrough",
     "stats",
     "status",
-    "tap",
-    "transport"
+    "tap"
   ]
-  revision = "168a6198bcb0ef175f7dacec0b8691fc141dc9b8"
-  version = "v1.13.0"
+  revision = "32fb0ac620c32ba40a4626ddf94d90d12cce3455"
+  version = "v1.14.0"
 
 [[projects]]
   branch = "v2"
@@ -273,6 +292,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "820c8719bc304b9ae0aacce7afccd1011f8296aecfecde476eb74c3d2d9ce7f8"
+  inputs-digest = "7487d8c5c8bbf17c24281ec4b823408f5701641f24c21b502feedd99bfa1f07f"
   solver-name = "gps-cdcl"
   solver-version = 1
