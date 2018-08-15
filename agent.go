@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net"
 	"strconv"
@@ -18,12 +19,13 @@ import (
 
 // PacketBGPAgent is an agent that reads data in from Packet metadata and controls BGP announcement
 type PacketBGPAgent struct {
-	BGPServer      *gobgpServer.BgpServer
-	BGPGRPCServer  *gobgpApi.Server
-	AnnoucementIPs []string
-	PrivateIP      *metadata.AddressInfo
-	MD5Password    string
-	ASN            string
+	BGPServer         *gobgpServer.BgpServer
+	BGPGRPCServer     *gobgpApi.Server
+	AnnoucementIPs    []string
+	PrivateIP         *metadata.AddressInfo
+	MD5Password       string
+	ASN               string
+	announcementTable map[string][]byte
 }
 
 // NewPacketBGPAgent creates a new PacketBGPAgent
@@ -66,12 +68,13 @@ func NewPacketBGPAgent(bgpServer *gobgpServer.BgpServer, grpcServer *gobgpApi.Se
 	}
 
 	return &PacketBGPAgent{
-		BGPServer:      bgpServer,
-		BGPGRPCServer:  grpcServer,
-		AnnoucementIPs: []string{},
-		PrivateIP:      privateIP,
-		MD5Password:    md5Password,
-		ASN:            asn,
+		BGPServer:         bgpServer,
+		BGPGRPCServer:     grpcServer,
+		AnnoucementIPs:    []string{},
+		PrivateIP:         privateIP,
+		MD5Password:       md5Password,
+		ASN:               asn,
+		announcementTable: make(map[string][]byte),
 	}, nil
 }
 
@@ -123,6 +126,25 @@ func (agent *PacketBGPAgent) EnsureIPs(done chan bool) {
 func (agent *PacketBGPAgent) EnsureBGP() error {
 	log.Println("ensuring announcement of the following IP blocks: ", agent.AnnoucementIPs)
 
+	for annIP, uuid := range agent.announcementTable {
+		exists := false
+		for _, annoucementIP := range agent.AnnoucementIPs {
+			if exists = annoucementIP == annIP; exists {
+				break
+			}
+		}
+		if !exists { // if IP was previously announced but now is removed
+			_, err := agent.BGPGRPCServer.DeletePath(context.Background(), &gobgpApi.DeletePathRequest{
+				Uuid: uuid,
+			})
+			if err != nil {
+				return err
+			}
+
+			delete(agent.announcementTable, annIP)
+		}
+	}
+
 	for _, announceIP := range agent.AnnoucementIPs {
 		ip, ipnet, err := net.ParseCIDR(announceIP)
 		if err != nil {
@@ -142,9 +164,12 @@ func (agent *PacketBGPAgent) EnsureBGP() error {
 			bgp.NewPathAttributeNextHop(agent.PrivateIP.Address.String()),
 			bgp.NewPathAttributeAsPath([]bgp.AsPathParamInterface{bgp.NewAs4PathParam(bgp.BGP_ASPATH_ATTR_TYPE_SEQ, []uint32{4000, 400000, 300000, 40001})}),
 		}
-		if _, err := agent.BGPServer.AddPath("", []*table.Path{table.NewPath(nil, bgp.NewIPAddrPrefix(uint8(ones), ip.String()), false, attrs, time.Now(), false)}); err != nil {
+		pathID, err := agent.BGPServer.AddPath("", []*table.Path{table.NewPath(nil, bgp.NewIPAddrPrefix(uint8(ones), ip.String()), false, attrs, time.Now(), false)})
+		if err != nil {
 			return err
 		}
+
+		agent.announcementTable[announceIP] = pathID
 	}
 	return nil
 }

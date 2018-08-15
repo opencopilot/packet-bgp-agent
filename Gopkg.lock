@@ -47,7 +47,7 @@
     "ptypes/duration",
     "ptypes/timestamp"
   ]
-  revision = "89a0c16f4dc2a70c0ed864d8ef64878f24fdaa51"
+  revision = "aa810b61a9c79d51363740d207bb46cf8e620ed5"
 
 [[projects]]
   branch = "master"
@@ -111,7 +111,7 @@
     "hegel",
     "packetmetadata"
   ]
-  revision = "1a2e40a590289bd0de5ea0f8ec91fb94f017df7b"
+  revision = "22d1b9eb597617e18e00e9f566a90b1da5616e3a"
 
 [[projects]]
   branch = "master"

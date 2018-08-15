@@ -125,7 +125,7 @@ func Watch() (*WatchIterator, error) {
 				}
 
 				var metadata *Metadata
-				err = json.Unmarshal(currentState, &metadata)
+				err = json.Unmarshal(newState, &metadata)
 				if err != nil {
 					errorChan <- err
 				}
