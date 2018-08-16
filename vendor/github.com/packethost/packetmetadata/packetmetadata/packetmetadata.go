@@ -7,7 +7,7 @@ import (
 
 	jsonpatch "github.com/evanphx/json-patch"
 	"github.com/packethost/packetmetadata/hegel"
-	"github.com/packethost/packngo"
+	"github.com/packethost/packngo/metadata"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
@@ -18,7 +18,7 @@ var hegelAddr = "metadata.packet.net:50060"
 type Metadata struct {
 	ID                                 string                   `json:"id"`
 	State                              string                   `json:"state"`
-	Instance                           *packngo.Device          `json:"instance"`
+	Instance                           *metadata.CurrentDevice  `json:"instance"`
 	PreinstalledOperatingSystemVersion interface{}              `json:"preinstalled_operating_system_version"`
 	NetworkPorts                       []map[string]interface{} `json:"network_ports"`
 	PlanSlug                           string                   `json:"plan_slug"`

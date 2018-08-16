@@ -111,16 +111,13 @@
     "hegel",
     "packetmetadata"
   ]
-  revision = "22d1b9eb597617e18e00e9f566a90b1da5616e3a"
+  revision = "785f0e686ac393eae8ea79e910799c15fa8ceada"
 
 [[projects]]
   branch = "master"
   name = "github.com/packethost/packngo"
-  packages = [
-    ".",
-    "metadata"
-  ]
-  revision = "34705f16ffb1e48a6421713c5318f6d56afe2f41"
+  packages = ["metadata"]
+  revision = "3e366203a129ebb34bfb2af239e16f2c96034a65"
 
 [[projects]]
   name = "github.com/pelletier/go-toml"
@@ -206,7 +203,7 @@
     "internal/timeseries",
     "trace"
   ]
-  revision = "c39426892332e1bb5ec0a434a079bf82f5d30c54"
+  revision = "aaf60122140d3fcf75376d319f0554393160eb50"
 
 [[projects]]
   branch = "master"
@@ -215,7 +212,7 @@
     "unix",
     "windows"
   ]
-  revision = "4e1fef5609515ec7a2cee7b5de30ba6d9b438cbf"
+  revision = "1c9583448a9c3aa0f9a6a5241bf73c0bd8aafded"
 
 [[projects]]
   name = "golang.org/x/text"
@@ -242,7 +239,7 @@
   branch = "master"
   name = "google.golang.org/genproto"
   packages = ["googleapis/rpc/status"]
-  revision = "383e8b2c3b9e36c4076b235b32537292176bae20"
+  revision = "d0a8f471bba2dbb160885b0000d814ee5d559bad"
 
 [[projects]]
   name = "google.golang.org/grpc"
