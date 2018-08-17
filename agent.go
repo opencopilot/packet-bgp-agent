@@ -24,7 +24,7 @@ type PacketBGPAgent struct {
 	AnnoucementIPs    []string
 	PrivateIP         *metadata.AddressInfo
 	MD5Password       string
-	ASN               string
+	ASN               uint32
 	announcementTable map[string][]byte
 }
 
@@ -73,7 +73,7 @@ func NewPacketBGPAgent(bgpServer *gobgpServer.BgpServer, grpcServer *gobgpApi.Se
 		AnnoucementIPs:    []string{},
 		PrivateIP:         privateIP,
 		MD5Password:       md5Password,
-		ASN:               asn,
+		ASN:               asn32,
 		announcementTable: make(map[string][]byte),
 	}, nil
 }
@@ -88,12 +88,40 @@ func (agent *PacketBGPAgent) EnsureIPs(done chan bool) {
 	for {
 		select {
 		case <-done:
+			// handle the done channel, close the metadata connection and break out of the loop
 			iterator.Close()
 			break
 		default:
+			// block on iterator.Next(), waiting for a change to come in from metadata
 			res, err := iterator.Next()
 			if err != nil {
 				log.Println(err)
+			}
+
+			// If MD5 has changed, set the new one on the agent
+			newMD5, ok := res.Metadata.Instance.CustomData["MD5_PASSWORD"]
+			if ok && newMD5.(string) != agent.MD5Password {
+				agent.MD5Password = newMD5.(string)
+				log.Println("changing MD5_PASSWORD")
+			}
+
+			// If ASN has changed, set it on the agent, account for if it's specified as string vs int
+			incomingASN, ok := res.Metadata.Instance.CustomData["ASN"]
+			var newASN uint32
+			switch n := incomingASN.(type) {
+			case string:
+				asn64, err := strconv.ParseUint(n, 10, 32)
+				if err != nil {
+					log.Println(err)
+				}
+				newASN = uint32(asn64)
+			case float64:
+				newASN = uint32(n)
+			}
+
+			if ok && newASN != agent.ASN {
+				agent.ASN = newASN
+				log.Println("changing ASN")
 			}
 
 			annoucementIPs, ok := res.Metadata.Instance.CustomData["BGP_ANNOUNCE"]

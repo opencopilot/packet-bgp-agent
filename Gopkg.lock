@@ -111,12 +111,15 @@
     "hegel",
     "packetmetadata"
   ]
-  revision = "785f0e686ac393eae8ea79e910799c15fa8ceada"
+  revision = "4fa0130ca9ba348233fef177751619fcd6a844bd"
 
 [[projects]]
   branch = "master"
   name = "github.com/packethost/packngo"
-  packages = ["metadata"]
+  packages = [
+    ".",
+    "metadata"
+  ]
   revision = "3e366203a129ebb34bfb2af239e16f2c96034a65"
 
 [[projects]]
@@ -189,7 +192,7 @@
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
-  revision = "de0752318171da717af4ce24d0a2e8626afaeb11"
+  revision = "aabede6cba87e37f413b3e60ebfc214f8eeca1b0"
 
 [[projects]]
   branch = "master"
@@ -239,7 +242,7 @@
   branch = "master"
   name = "google.golang.org/genproto"
   packages = ["googleapis/rpc/status"]
-  revision = "d0a8f471bba2dbb160885b0000d814ee5d559bad"
+  revision = "c66870c02cf823ceb633bcd05be3c7cda29976f4"
 
 [[projects]]
   name = "google.golang.org/grpc"
