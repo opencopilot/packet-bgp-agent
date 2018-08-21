@@ -2,13 +2,13 @@ language: go
 services:
 - docker
 after_success:
-- docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+- docker login -u $DOCKER_USER -p $DOCKER_PASS
 - export REPO=opencopilot/packet-bgp-agent
 - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
 - docker build -f Dockerfile -t $REPO:$COMMIT .
 - docker tag $REPO:$COMMIT $REPO:$TAG
 - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
-- docker push $REPO -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+- docker push $REPO -u $DOCKER_USER -p $DOCKER_PASS
 env:
   global:
   - secure: ZxXVZkU3cVyHhx0APqJe9za88ODxhZ3VOMDKzQBOt8fqW9omQhF9XtHRjXUywQOZ6SzIFWR7OyVv6lAOnkwP5TEJkaJZMSOsMKTvlWMTOH/sFLxPRUtri0MwsKkTGWqq5L3GYXE6BruwXT/aLcYqNSRj+7h/HErE1hOzKX6jXowCpLXhQxesJd9Bnn5bQtHiQ5wvQzw0rEEL8lxZlOzx0tJNxiNCY1bs4N+fpdL0UVzA8kGhbO9dJVRdHR+r9l3PlYDz9/L+ta+04feuJkISAFs/+wlz77QcB8sqDiqlEnbRhVlFsC+R/4NScc/rVgd87b1xeeYVghn64Qm4JyydLw1GP3wkYNpWQWHHf16e3gKkkaIXeBsc4TXLM+jS2A3bhD7P3LuxNRlTVjXRKIG7YsZebNR1SSLR79WGfQbp96PMi7MC4QHe/SgKWR2QhfLMemz+9loTmkm585Rx9V/ITxOtR5uP4SixGG1KmNsQzM8npt3d/KjG9IsjIb3fZ7Smedggln7g2HSP+ws13owsThxivBLkhVmd3/TO4EbGXtewt53t/jsLeqyoy8fU5yYG/v+jJHwWRC8+VBmzH9YauRnw66QPZl/blMcc8XGNRHFekfrPq8icP87yUPveDv72gL3sUOprxe6k88PbAngwGepNHcYHwT/GN0DFJwdFM94=
