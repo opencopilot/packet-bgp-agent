@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"os"
 	"os/signal"
@@ -17,9 +18,9 @@ var (
 )
 
 func init() {
-	if asn == "" {
-		asn = "65000"
-	}
+	flag.StringVar(&md5Password, "md5", "", "Specify MD5 password to announce with")
+	flag.StringVar(&asn, "asn", "65000", "ASN to announce with")
+	flag.Parse()
 }
 
 func main() {
@@ -33,6 +34,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	log.Printf("started new bgp agent MD5=%s, ASN=%s \n", md5Password, asn)
 
 	quit := make(chan bool, 1)
 	go agent.EnsureIPs(quit)

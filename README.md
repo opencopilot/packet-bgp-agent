@@ -16,6 +16,12 @@ Note that host networking and `--cap-add NET_ADMIN` are required to configure ne
 |`ASN`|ASN to announce| `65000`|
 
 
+You can also pass in flags such as:
+
+`docker run --net host --cap-add NET_ADMIN opencopilot/packet-bgp-agent --md5 XXXX --asn 65000`
+
+Flags will override env vars.
+
 #### Setting Custom Data
 
 You can set `customdata` (an arbitrary json blob) on a Packet device like so:
