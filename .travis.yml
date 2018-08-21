@@ -1,0 +1,6 @@
+language: go
+services:
+  - docker
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push opencopilot/packet-bgp-agent
