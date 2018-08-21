@@ -1,6 +1,17 @@
 language: go
 services:
-  - docker
+- docker
 after_success:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push opencopilot/packet-bgp-agent
+- docker login
+- export REPO=opencopilot/packet-bgp-agent
+- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+- docker build -f Dockerfile -t $REPO:$COMMIT .
+- docker tag $REPO:$COMMIT $REPO:$TAG
+- docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+- docker push $REPO -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+env:
+  global:
+  - secure: ZxXVZkU3cVyHhx0APqJe9za88ODxhZ3VOMDKzQBOt8fqW9omQhF9XtHRjXUywQOZ6SzIFWR7OyVv6lAOnkwP5TEJkaJZMSOsMKTvlWMTOH/sFLxPRUtri0MwsKkTGWqq5L3GYXE6BruwXT/aLcYqNSRj+7h/HErE1hOzKX6jXowCpLXhQxesJd9Bnn5bQtHiQ5wvQzw0rEEL8lxZlOzx0tJNxiNCY1bs4N+fpdL0UVzA8kGhbO9dJVRdHR+r9l3PlYDz9/L+ta+04feuJkISAFs/+wlz77QcB8sqDiqlEnbRhVlFsC+R/4NScc/rVgd87b1xeeYVghn64Qm4JyydLw1GP3wkYNpWQWHHf16e3gKkkaIXeBsc4TXLM+jS2A3bhD7P3LuxNRlTVjXRKIG7YsZebNR1SSLR79WGfQbp96PMi7MC4QHe/SgKWR2QhfLMemz+9loTmkm585Rx9V/ITxOtR5uP4SixGG1KmNsQzM8npt3d/KjG9IsjIb3fZ7Smedggln7g2HSP+ws13owsThxivBLkhVmd3/TO4EbGXtewt53t/jsLeqyoy8fU5yYG/v+jJHwWRC8+VBmzH9YauRnw66QPZl/blMcc8XGNRHFekfrPq8icP87yUPveDv72gL3sUOprxe6k88PbAngwGepNHcYHwT/GN0DFJwdFM94=
+  - secure: HoXTXOBF81YxcHBEPSYMFCoO6dJ/FY34Si/CMwwbc4d+O90qmj3lH9do9WWyQZzgmNbHm3C4lXJcAjMtie/pcOa6t5yZ+AgN6koTljKFdRhiLusQmZiBkjfUbm5PyVvz+lIm02DSBtvYGcA/idCvheANjoTFUTgvhSauN0161dhOYPGIohllj7q2Lyt7S8GOMbvnrTbBGik6XMx+59goTujIcmuRdLC9SY7od17g7xh/IdKufTab/u9H7ToENJml0bPKqDKQ6sX5Br3pAJ41UfvMDqld4LZUzt88gOua/Af44hYzh6wmBiONKN5SVZXqJA29OLlrIo1pnKCN8QPMlbFcEDzxG68xy2lc183RMRiH7TcFgcjvy4gjvTvjW0JugajAvs6pup+m8uYmBwkTvS5Z8pMwFNNWUM8orS8BTkCmH5Q6coNVaXBKIpIxBq8rhEr0YQWXGi9uZyr3NhlsP+3kLpslwhkOL4SLzhJ5vzJWJOUFHwFVYf8jke8HkKZBcSaOkQ1QgiWTwZ5ujEGSo/yNTQ1mSSvgDoXzao/P6AcHjtvouFd/NwLhmINgQ1h/p5a2ZVxWpdiIEXpvKKg1dGigjdzU1QlBSrJuVUVOJ7Z3bJrOnq4t/+VqtTS9SUVTGCprl45IYo311ISld3W3qrkbTKjVYCisbX7NynPd58c=
+  - secure: IZAOVTjm0j+ItYKKmmFzLEz9Jc7DsjmxkG/Gc0jxtK02UN1bKboxfMbiz6WR7JnF3KdvjlxNAG8qvw+VgSo69MAA7OmZNlYKZE2HFXwm2ed6YqItwKD0sXu8quz1cT8APM/RFUGgPV//dKz2mZDTp+44igAPVyLXwav9XOJDGto0wtmrnOdUcm73kji6/YJh7ki3SUdL8c7U0h9X33X7y4E5OuX6jIzNayvxVczcy5xauJYmGgvag3ZG5tOgQ9OLeymfQyK4W7nQWXdeqT6fQMeYIub8ypMjQnRCW3c2izas2eLBR+YuleI+OtZ8/BY5VgUF/4JjH83Jxa0FrurUjwVQTObJL2E0m3IeFxOkBU8KLTANEEJoT6yHt5+pfnSFquBZ41GKQtmagPJ/D0AFP9L7f+BCOw9nB4wW1bpnjIYlcUeY9Zi4EZx2IwNgrnWUc5fSVSGet0vFEyrUi8+EiqY5Md1yWN3wnk25vctJyDBFiW7UvbvDpzG94GlrpuB6U7D++UBtgqHjoDXYOwSVFa71wJGzI0NpCCD7JL9YEKHkbF6DcZQXebX0jTUxhh2H2D9gxqmxif1HohdLWqFjuwnNn7ptPURKOgvkDN0VCpPcgz4hkW+0gruOQrh/OTdH+yJqjQBBpMsNwqqn63k6sLP9x1M5SVjmEQb1TNEXCAM=
+  - COMMIT=${TRAVIS_COMMIT::8}
