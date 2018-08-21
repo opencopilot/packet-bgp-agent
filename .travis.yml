@@ -1,8 +1,9 @@
 language: go
+sudo: required
 services:
 - docker
 after_success:
-- echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 - export REPO=opencopilot/packet-bgp-agent
 - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH
   ; fi`
@@ -13,5 +14,3 @@ after_success:
 env:
   global:
   - COMMIT=${TRAVIS_COMMIT::8}
-  - secure: 0+s3JkZANSze11F4J9EKMbRdqU/8AxlCKbDacavOVvTMHJkRpW+JUKS+YR9iWpkzk9gjq3r5w5LDywQI7IBQZneKTk0GZNvGzzGB9HulDUDk3rJkQaCZO99VpRq2B9OG0P1F2tAcqXGvNXj1gnCGQO9ZCClF8P3BGIBCwoWnwUOczeUyRW0ZS+PRQ2THUICMX2TiJ0N6HCnrJryO994ivGbtUSHC6Bre/TbMvDapAjFCsdHicNPHdZqpAAhJHzBGlGvQPQexTdJxVtyRFtRWH2R4ujCPb9HDlZHmiAkgQ+mM0/EuvGFjdOPYEnPWGKiuq3jwMh5SRi5mJPGiyrtbjxgeo48jhg11KJJrORfBmwkBfoSkXt2SIaL25cdR1c3JBvb+2BYAzEHcAvLDOuX3qnfMAhMpb3iM2GWsPFpgQjHVhnB04R7R4W2HvKP3nJ+L2OSHseS+B4WLsHs8JzTnozvYR1fXKc4QzMLAcRSH73TrGfMF5THWbYFCv0s6HLzLiT5TtHKgqmHMKBtvtX+d3ujCOgL16zJe/kzUn/PihfkYZCgYKSYMmLZ0RzNMGX7ksi6kMeZPCbnzK9ZIM/oUcGo9KEuGWjpJVHHkGHGi/K9ykmGgtyG1T4i28ux6sTCV7W+dMJnGlA+XGGJgGsm0IkizkzFXzSsncdWDcO+MDNo=
-  - secure: R6RtxQ1tPX+WZ2AFjdYv+6+YhDT70M5knp5zKFzlD9jcP+WQ/Kxjo9n7UyMtTDhpIcZV7Ffe1qqIsFCWcbTpdN24mfcgGXO/i+trDTlWshrMBoUtG6TP8htG0juNvUYq2AoKmHdSCdsrh7PUEVE3hguW+BFTGUiq68IDcy+YvRc2knbuvd7Vhftr9I9nVPefsb5BJ/llhu5Bb6RUa6e1LQV3HJ/oBl4fQBvcU6ywk98Zd2+XCB85kfEMRcpJpTZKXVmWAyIZ0AjliDWlPvj+8I1tyRBw1qXUlZ86QUPYTB48lbLmvbQL7c7SX2HsDBNurszPL/icAp0Fs277W9By+XHGRQYs8EFfsiAJ5z8rw5jtOf6CIhozPscYaRLZZeYiigr6BZEWDmjwP8UySK1Njkvc5w8hYFUIwR/hb2j1u9b32BVxb3swLz07Q3SWrZAA8a8jHApDRaHWSH0HgbPXyEKc+P6BR7HIToWkOQk+fpTuynzppbvI6LUFKQtGF8Xs1bIAeDFwfCIBf5mPRkNeQcKwG2DTfX6RGldl4+VoGf55hzKJLQuwFoy1jv2C5wFiEj29s1or31HZr2+qSfw5am+k4s8JkWh17P6Om5tmdJuKmfl5dhiHV/LZ3UTEM/RxDOwZToyrPNo77bZNB0yNNI8o1OVc+ZT98N/8EgY1mBA=
