@@ -8,19 +8,19 @@ Can be run as a docker container:
 
 `docker run --net host --cap-add NET_ADMIN -e MD5_PASSWORD=... opencopilot/packet-bgp-agent`
 
-Note that host networking and `--cap-add NET_ADMIN` are required to configure networking on the host.
-
-| ENV Var | Description | Default |
-|---|---|---|
-|`MD5_PASSWORD`| MD5 password to use| (empty string)|
-|`ASN`|ASN to announce| `65000`|
-
-
-You can also pass in flags such as:
+or
 
 `docker run --net host --cap-add NET_ADMIN opencopilot/packet-bgp-agent --md5 XXXX --asn 65000`
 
 Flags will override env vars.
+
+Note that host networking and `--cap-add NET_ADMIN` are required to configure networking on the host.
+
+| ENV Var | Flag | Description | Default |
+|---|---|---|---|
+|`MD5_PASSWORD`| `--md5` | MD5 password to use| (empty string)|
+|`ASN`| `--asn`| ASN to announce| `65000`|
+
 
 #### Setting Custom Data
 
