@@ -2,7 +2,9 @@ language: go
 sudo: required
 services:
   - docker
-gobuild_args: -x -ldflags "-X main.tag $REPO:$TAG"
+script:
+  - go test -v ./...
+  - go build -v -ldflags "-X main.tag $REPO:$TAG" *.go
 after_success:
   - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
   - export REPO=opencopilot/packet-bgp-agent
