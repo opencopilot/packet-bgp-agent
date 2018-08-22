@@ -1,7 +1,7 @@
 FROM golang:alpine3.8
 
 WORKDIR /go/src/github.com/opencopilot/packet-bgp-agent
-COPY . .
+COPY "cmd" "cmd"
 
 RUN apk update;
 
