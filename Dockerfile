@@ -5,6 +5,6 @@ COPY . .
 
 RUN apk update;
 
-RUN go build -o cmd/packet-bgp-agent
+# RUN go build -o cmd/packet-bgp-agent
 
 ENTRYPOINT [ "cmd/packet-bgp-agent" ]
