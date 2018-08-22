@@ -2,6 +2,7 @@ language: go
 sudo: required
 services:
   - docker
+install: true
 script:
   - go test -v ./...
   - go build -v -ldflags "-X main.tag=$REPO:$TAG" -o cmd/packet-bgp-agent
