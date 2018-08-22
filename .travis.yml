@@ -5,7 +5,6 @@ services:
 script:
   - go test -v ./...
   - go build -v -ldflags "-X main.tag=$REPO:$TAG" -o cmd/packet-bgp-agent
-after_success:
   - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
   - export REPO=opencopilot/packet-bgp-agent
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH
