@@ -18,7 +18,7 @@ var (
 	asn         = os.Getenv("ASN")
 )
 
-const (
+var (
 	tag = "unknown" // set with -ldflags
 )
 

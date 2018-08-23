@@ -5,12 +5,12 @@ services:
 install: true
 script:
   - go test -v ./...
-  - go build -v -ldflags "-X main.tag=$REPO:$TAG" -o cmd/packet-bgp-agent
+  - CGO_ENABLED=0 GOOS=linux go build -v -ldflags "-X main.tag=$REPO:$TAG" -o cmd/packet-bgp-agent
   - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
   - export REPO=opencopilot/packet-bgp-agent
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH
     ; fi`
-  - docker build -f Dockerfile -t $REPO:$COMMIT .
+  - docker build -t $REPO:$COMMIT .
   - docker tag $REPO:$COMMIT $REPO:$TAG
   - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
   - docker push $REPO
