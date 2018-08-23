@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"os"
 	"os/signal"
@@ -17,10 +18,21 @@ var (
 	asn         = os.Getenv("ASN")
 )
 
+var (
+	tag = "unknown" // set with -ldflags
+)
+
 func init() {
+	var printVersion bool
 	flag.StringVar(&md5Password, "md5", "", "Specify MD5 password to announce with")
 	flag.StringVar(&asn, "asn", "65000", "ASN to announce with")
+	flag.BoolVar(&printVersion, "version", false, "print the current version")
 	flag.Parse()
+
+	if printVersion {
+		fmt.Println(tag)
+		os.Exit(0)
+	}
 }
 
 func main() {

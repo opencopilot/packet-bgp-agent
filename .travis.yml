@@ -1,16 +1,18 @@
 language: go
 sudo: required
 services:
-- docker
-after_success:
-- echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-- export REPO=opencopilot/packet-bgp-agent
-- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH
-  ; fi`
-- docker build -f Dockerfile -t $REPO:$COMMIT .
-- docker tag $REPO:$COMMIT $REPO:$TAG
-- docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
-- docker push $REPO
+  - docker
+install: true
+script:
+  - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+  - export REPO=opencopilot/packet-bgp-agent
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
+  - go test -v ./...
+  - CGO_ENABLED=0 GOOS=linux go build -v -ldflags "-X main.tag=$REPO:$COMMIT" -o cmd/packet-bgp-agent
+  - docker build -t $REPO:$COMMIT .
+  - docker tag $REPO:$COMMIT $REPO:$TAG
+  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker push $REPO
 env:
   global:
-  - COMMIT=${TRAVIS_COMMIT::8}
+    - COMMIT=${TRAVIS_COMMIT::8}
