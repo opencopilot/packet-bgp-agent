@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/opencopilot/packet-bgp-agent.svg?branch=master)](https://travis-ci.org/opencopilot/packet-bgp-agent)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fopencopilot%2Fpacket-bgp-agent.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fopencopilot%2Fpacket-bgp-agent?ref=badge_shield)
 ### Packet BGP Agent
 
 Watches Packet metadata for changes to a `customdata` field called `BGP_ANNOUNCE`, adds the specified IP blocks to the loopback device, and uses `gobgp` to begin announcing those IPs. The `BGP_ANNOUNCE` can be set to either a string or an array of strings `X.X.X.X/XX` or `[X.X.X.X/XX, X.X.X.X/XX]` depending on how many blocks you want to announce.
@@ -32,3 +33,7 @@ You can set `customdata` (an arbitrary json blob) on a Packet device like so:
 #### Dependencies
 
 This code uses the [netlink](https://github.com/vishvananda/netlink) library and [gobgp](https://github.com/osrg/gobgp)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fopencopilot%2Fpacket-bgp-agent.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fopencopilot%2Fpacket-bgp-agent?ref=badge_large)
